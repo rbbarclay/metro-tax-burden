@@ -2,7 +2,9 @@
 
 Status: proposed. Last updated: 2026-11-20.
 
-How the [v1 plan](v1.md) gets built. Decisions referenced as "13.x" are in section 13 of that plan.
+How the [v1 plan](v1.md) gets built. Decisions referenced as "13.x" are in section 13 of that plan; coverage phases are in section 14.
+
+M0–M7 build the 10-metro pilot. M8 and M9 extend it to all 393 ACS 1-year metros.
 
 ## Architecture
 
@@ -49,6 +51,7 @@ Each milestone ends with tests passing, PROJECT.md updated, and a commit.
 - `calc.js`: `federalTax(wage, status)`, `fica(wage, status)`, `stateTax(state, wage, status)`. Each applies the standard deduction and personal exemption only; no itemized deductions or credits (13.1).
 - Federal and FICA tested against IRS 2026 published figures.
 - State order: the states with no wage income tax, then flat-tax states, then states with brackets. Each state gets at least one test from its revenue department's worksheet or published example, for both Single and Married filing jointly where one is published.
+- Metro-to-state mapping from the OMB delineation file, with each metro's principal-city state as the default for metros spanning states (13.7).
 - Wage input: hourly, or annual ÷ 2,080. With no entry, each metro uses its OEWS median hourly wage, and results state this (13.2). This needs the OEWS wage file, built as in time-to-afford.
 
 ### M3: Property tax (plan 11.3)
@@ -64,6 +67,7 @@ Each milestone ends with tests passing, PROJECT.md updated, and a commit.
 
 ### M5: Local income tax (plan 11.5)
 - One entry per jurisdiction: rate, tax year, source URL, as-of date, and which metros and counties it covers. Each entry is checked against the ordinance before it goes in.
+- County-level taxes weighted by population across the metro's counties; city-level taxes applied for the principal city only, labeled "principal city rate; suburbs may differ" (13.8).
 - Metro flag plus the list of included jurisdictions. Metros with none show "none listed."
 
 ### M6: Burden calculation (plan 11.6)
@@ -72,12 +76,22 @@ Each milestone ends with tests passing, PROJECT.md updated, and a commit.
 - Output states the wage source (entered or metro median), filing status, housing choice, tax year 2026, ACS 2025, and which components are missing or waiting for input.
 
 ### M7: Front end (plan 11.7)
-- Inputs: wage (optional, with fallback label), filing status (default Single), housing choice (rent or own, home value), taxable spending (required for sales tax, no default).
+- Inputs: wage (optional, with fallback label), filing status (default Single), state within the metro (shown only for metros spanning states, defaulting to the principal city's state), housing choice (rent or own, home value), taxable spending (required for sales tax, no default).
 - Metro picker and a results breakdown with tier badges and "How is this calculated?" panels.
 - Methodology page: definitions, sources, limitations (excluded deductions and credits, renters' pass-through, period mismatch, sales tax approximation, local tax list coverage), privacy, and "Estimate for planning. Not tax advice."
 
+### M8: National base (plan 14.2)
+- Run the wage, property tax and metro-to-state pipelines for all 393 metros. State income tax tables already cover every state from M2.
+- Validation covers all 393: structure, plausible ranges, and Census cross-checks for property tax inputs.
+- Sales tax and local income tax show "not yet covered" outside the pilot states (13.9).
+- Front end and methodology state which components cover which metros.
+
+### M9: State-by-state rollout (plan 14.3)
+- For each state: sales tax rates (county, plus city and district rates where the state publishes them) and local income taxes, each verified against primary sources, with terms recorded in DATA.md.
+- Includes the added candidates in plan section 5 (Indiana, Iowa, Alabama, Delaware, Colorado, West Virginia).
+- PROJECT.md tracks which states are done.
+
 ## After v1
-- Expand from 10 pilot metros to all metros.
 - Head of household and Married filing separately.
 - Itemized deductions and credits, if chosen (plan section 12).
 - Payroll add-ons such as state paid leave programs.
