@@ -1,0 +1,60 @@
+# Federal income tax, tax year 2026.
+# Source: Rev. Proc. 2025-32 (Oct. 9, 2025), section 4.01 (tax rate tables, Tables 1 and 3)
+# and section 4.14 (standard deduction). Cross-checked against IRS news release IR-2025-103.
+kind: income_tax
+jurisdiction: US
+tax_year: 2026
+methods:
+  irs_rp_2025_32:
+    description: Federal tax rate schedules and basic standard deduction for tax year 2026, as published by the IRS.
+    as_of: "2025-10-09"
+    inputs:
+      - source: Internal Revenue Service
+        title: Rev. Proc. 2025-32, sections 4.01 and 4.14
+        url: https://www.irs.gov/pub/irs-drop/rp-25-32.pdf
+        license: U.S. government work (17 U.S.C. § 105)
+      - source: Internal Revenue Service
+        title: IR-2025-103, IRS releases tax inflation adjustments for tax year 2026
+        url: https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill
+        license: U.S. government work (17 U.S.C. § 105)
+  irs_no_personal_exemption:
+    description: The federal personal exemption is $0 for tax year 2026 ("personal exemptions remain at 0, as in tax year 2025"; made permanent by the One, Big, Beautiful Bill).
+    as_of: "2025-10-09"
+    inputs:
+      - source: Internal Revenue Service
+        title: IR-2025-103
+        url: https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill
+        license: U.S. government work (17 U.S.C. § 105)
+filing_status:
+  single:
+    # Section 4.14: "Unmarried Individuals ... $16,100"
+    standard_deduction: {value: 16100, tier: observed, method: irs_rp_2025_32}
+    personal_exemption: {value: 0, tier: observed, method: irs_no_personal_exemption}
+    # Section 4.01, Table 3, section 1(j)(2)(C)
+    brackets:
+      tier: observed
+      method: irs_rp_2025_32
+      value:
+        - {over: 0, rate: 0.10}
+        - {over: 12400, rate: 0.12}    # $1,240 plus 12% of the excess
+        - {over: 50400, rate: 0.22}    # $5,800 plus 22%
+        - {over: 105700, rate: 0.24}   # $17,966 plus 24%
+        - {over: 201775, rate: 0.32}   # $41,024 plus 32%
+        - {over: 256225, rate: 0.35}   # $58,448 plus 35%
+        - {over: 640600, rate: 0.37}   # $192,979.25 plus 37%
+  married_joint:
+    # Section 4.14: "Married Individuals Filing Joint Returns and Surviving Spouses ... $32,200"
+    standard_deduction: {value: 32200, tier: observed, method: irs_rp_2025_32}
+    personal_exemption: {value: 0, tier: observed, method: irs_no_personal_exemption}
+    # Section 4.01, Table 1, section 1(j)(2)(A)
+    brackets:
+      tier: observed
+      method: irs_rp_2025_32
+      value:
+        - {over: 0, rate: 0.10}
+        - {over: 24800, rate: 0.12}    # $2,480 plus 12% of the excess
+        - {over: 100800, rate: 0.22}   # $11,600 plus 22%
+        - {over: 211400, rate: 0.24}   # $35,932 plus 24%
+        - {over: 403550, rate: 0.32}   # $82,048 plus 32%
+        - {over: 512450, rate: 0.35}   # $116,896 plus 35%
+        - {over: 768700, rate: 0.37}   # $206,583.50 plus 37%

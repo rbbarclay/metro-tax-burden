@@ -98,6 +98,62 @@ def test_snapshot_detects_change_addition_and_removal(tmp_path):
     assert "tax table removed: 2026/xx.yml" in taxtables.check_snapshot(root, snap)
 
 
-def test_repo_tables_are_valid_and_match_snapshot():
+FICA = {
+    "kind": "fica",
+    "jurisdiction": "US",
+    "tax_year": 2026,
+    "methods": VALID["methods"],
+    "social_security": {"rate": {"value": 0.062, "tier": "observed", "method": "xx_2026"},
+                        "wage_base": {"value": 100000, "tier": "observed", "method": "xx_2026"}},
+    "medicare": {"rate": {"value": 0.0145, "tier": "observed", "method": "xx_2026"},
+                 "additional_rate": {"value": 0.009, "tier": "observed", "method": "xx_2026"}},
+    "filing_status": {s: {"additional_medicare_threshold": {"value": 200000, "tier": "observed", "method": "xx_2026"}}
+                      for s in taxtables.FILING_STATUSES},
+}
+
+
+def test_valid_fica_passes():
+    assert taxtables.check_table("f", FICA) == []
+
+
+@pytest.mark.parametrize("change, message", [
+    (lambda t: t.pop("social_security"), "missing social_security"),
+    (lambda t: t["social_security"]["rate"].update(value=6.2), "fraction from 0 to under 1"),
+    (lambda t: t["medicare"].pop("additional_rate"), "medicare.additional_rate: missing"),
+    (lambda t: t["filing_status"]["single"].clear(), "single.additional_medicare_threshold: missing"),
+])
+def test_invalid_fica_is_rejected(change, message):
+    t = copy.deepcopy(FICA)
+    change(t)
+    errors = taxtables.check_table("f", t)
+    assert any(message in e for e in errors), errors
+
+
+def test_bundle_groups_by_jurisdiction_and_kind(tmp_path):
+    root = tmp_path / "tax"
+    write(root, "2026/federal.yml", {**VALID, "jurisdiction": "US"})
+    write(root, "2026/fica.yml", FICA)
+    write(root, "2026/xx.yml", VALID)
+    bundle = taxtables.build_bundle(root)
+    assert bundle["tax_year"] == 2026
+    assert set(bundle["tables"]) == {"US", "state:XX"}
+    assert set(bundle["tables"]["US"]) == {"income_tax", "fica"}
+
+    write(root, "2026/xx2.yml", VALID)
+    with pytest.raises(ValueError, match="second income_tax table for state:XX"):
+        taxtables.build_bundle(root)
+
+
+def test_bundle_out_of_date_is_reported(tmp_path):
+    root, web = tmp_path / "tax", tmp_path / "web"
+    write(root, "2026/xx.yml", VALID)
+    assert taxtables.check_bundle(root, web_data=web)
+    web.mkdir()
+    taxtables.bundle_path(web_data=web).write_text(taxtables.bundle_json(taxtables.build_bundle(root)))
+    assert taxtables.check_bundle(root, web_data=web) == []
+
+
+def test_repo_tables_are_valid_match_snapshot_and_bundle():
     assert taxtables.check_all() == []
     assert taxtables.check_snapshot() == []
+    assert taxtables.check_bundle() == []

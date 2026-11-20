@@ -1,0 +1,35 @@
+# FICA (Social Security and Medicare), employee share, 2026 wages.
+# Source: IRS Topic 751 (rates, 2026 wage base) and IRS Additional Medicare Tax Q&A (rate, thresholds).
+# The SSA wage base page (ssa.gov/oact/cola/cbb.html) refused automated access (403);
+# the wage base here is the IRS's statement of it.
+kind: fica
+jurisdiction: US
+tax_year: 2026
+methods:
+  irs_tc751:
+    description: Employee Social Security rate (6.2%) up to the 2026 wage base, and employee Medicare rate (1.45%) on all wages.
+    as_of: "2026-11-09"
+    inputs:
+      - source: Internal Revenue Service
+        title: Topic no. 751, Social Security and Medicare withholding rates
+        url: https://www.irs.gov/taxtopics/tc751
+        license: U.S. government work (17 U.S.C. § 105)
+  irs_additional_medicare:
+    description: Additional Medicare Tax of 0.9% on wages above the threshold for the filing status.
+    as_of: "2026-10-25"
+    inputs:
+      - source: Internal Revenue Service
+        title: Questions and answers for the Additional Medicare Tax
+        url: https://www.irs.gov/businesses/small-businesses-self-employed/questions-and-answers-for-the-additional-medicare-tax
+        license: U.S. government work (17 U.S.C. § 105)
+social_security:
+  rate: {value: 0.062, tier: observed, method: irs_tc751}
+  wage_base: {value: 184500, tier: observed, method: irs_tc751}   # "For earnings in 2026, this base limit is $184,500."
+medicare:
+  rate: {value: 0.0145, tier: observed, method: irs_tc751}
+  additional_rate: {value: 0.009, tier: observed, method: irs_additional_medicare}
+filing_status:
+  single:
+    additional_medicare_threshold: {value: 200000, tier: observed, method: irs_additional_medicare}
+  married_joint:
+    additional_medicare_threshold: {value: 250000, tier: observed, method: irs_additional_medicare}

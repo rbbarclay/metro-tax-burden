@@ -15,7 +15,13 @@ Estimate the total state and local tax burden a household would pay in each U.S.
   - Other kinds (FICA, sales, local, property) get their checks in the milestones that need them.
   - **Snapshot:** the canonical JSON of each table is hashed into `pipeline/tests/snapshots/tax_tables.json`. Tests fail if any table changes, appears or disappears until `.venv/bin/python pipeline/taxtables.py --update-snapshot` is run and committed (plan section 7). Comments and formatting don't change the hash.
   - No real tables yet; they come in M2. The CI pytest step no longer tolerates "no tests collected."
-- Check tables: `.venv/bin/python pipeline/taxtables.py`
+- **M2 part 1 done: federal and FICA (2026-11-20).**
+  - `data/tax/2026/federal.yml`: 2026 brackets and standard deductions from Rev. Proc. 2025-32; personal exemption $0.
+  - `data/tax/2026/fica.yml`: Social Security 6.2% up to $184,500, Medicare 1.45%, Additional Medicare 0.9% over $200,000 single / $250,000 joint.
+  - `taxtables.py` adds the `fica` table type, and `--build` writes `web/data/tax-2026.json` (tables keyed by jurisdiction and kind). The tests fail if that bundle falls out of sync with the YAML.
+  - `web/calc.js` has `bracketTax`, `taxableIncome`, `incomeTax` (works for any income_tax table, federal or state) and `fica`. Tests check tax at every bracket threshold against the base amounts printed in Rev. Proc. 2025-32, plus FICA examples.
+  - Next: state income tax tables and the metro-to-state mapping, then the wage fallback.
+- Check tables and rebuild the site bundle: `.venv/bin/python pipeline/taxtables.py --build` (add `--update-snapshot` after a deliberate table change)
 - Setup: `uv venv .venv && uv pip install -p .venv -r pipeline/requirements.txt`
 - Tests: `.venv/bin/pytest pipeline` and `cd web && node --test tests/`
 - Local preview: `python3 -m http.server -d web` and open http://localhost:8000
@@ -46,6 +52,10 @@ Full list in plan section 13. In short:
 - [x] M0: Scaffolding
 - [x] M1: Data schema (tiers, tax year, filing status, snapshot-hash test)
 - [ ] M2: Federal, FICA and state income tax, with worksheet tests; metro-to-state mapping; wage fallback
+  - [x] Federal income tax and FICA (2026), tested against IRS figures
+  - [ ] State income tax (and list which states give exemption credits)
+  - [ ] Metro-to-state mapping
+  - [ ] Median-wage fallback (OEWS)
 - [ ] M3: Property tax (ACS B25103 ÷ B25077), pilot metros
 - [ ] M4: Sales tax, pilot metros
 - [ ] M5: Local income tax, pilot metros

@@ -1,0 +1,209 @@
+{
+ "tables": {
+  "US": {
+   "fica": {
+    "filing_status": {
+     "married_joint": {
+      "additional_medicare_threshold": {
+       "method": "irs_additional_medicare",
+       "tier": "observed",
+       "value": 250000
+      }
+     },
+     "single": {
+      "additional_medicare_threshold": {
+       "method": "irs_additional_medicare",
+       "tier": "observed",
+       "value": 200000
+      }
+     }
+    },
+    "jurisdiction": "US",
+    "kind": "fica",
+    "medicare": {
+     "additional_rate": {
+      "method": "irs_additional_medicare",
+      "tier": "observed",
+      "value": 0.009
+     },
+     "rate": {
+      "method": "irs_tc751",
+      "tier": "observed",
+      "value": 0.0145
+     }
+    },
+    "methods": {
+     "irs_additional_medicare": {
+      "as_of": "2026-10-25",
+      "description": "Additional Medicare Tax of 0.9% on wages above the threshold for the filing status.",
+      "inputs": [
+       {
+        "license": "U.S. government work (17 U.S.C. § 105)",
+        "source": "Internal Revenue Service",
+        "title": "Questions and answers for the Additional Medicare Tax",
+        "url": "https://www.irs.gov/businesses/small-businesses-self-employed/questions-and-answers-for-the-additional-medicare-tax"
+       }
+      ]
+     },
+     "irs_tc751": {
+      "as_of": "2026-11-09",
+      "description": "Employee Social Security rate (6.2%) up to the 2026 wage base, and employee Medicare rate (1.45%) on all wages.",
+      "inputs": [
+       {
+        "license": "U.S. government work (17 U.S.C. § 105)",
+        "source": "Internal Revenue Service",
+        "title": "Topic no. 751, Social Security and Medicare withholding rates",
+        "url": "https://www.irs.gov/taxtopics/tc751"
+       }
+      ]
+     }
+    },
+    "social_security": {
+     "rate": {
+      "method": "irs_tc751",
+      "tier": "observed",
+      "value": 0.062
+     },
+     "wage_base": {
+      "method": "irs_tc751",
+      "tier": "observed",
+      "value": 184500
+     }
+    },
+    "tax_year": 2026
+   },
+   "income_tax": {
+    "filing_status": {
+     "married_joint": {
+      "brackets": {
+       "method": "irs_rp_2025_32",
+       "tier": "observed",
+       "value": [
+        {
+         "over": 0,
+         "rate": 0.1
+        },
+        {
+         "over": 24800,
+         "rate": 0.12
+        },
+        {
+         "over": 100800,
+         "rate": 0.22
+        },
+        {
+         "over": 211400,
+         "rate": 0.24
+        },
+        {
+         "over": 403550,
+         "rate": 0.32
+        },
+        {
+         "over": 512450,
+         "rate": 0.35
+        },
+        {
+         "over": 768700,
+         "rate": 0.37
+        }
+       ]
+      },
+      "personal_exemption": {
+       "method": "irs_no_personal_exemption",
+       "tier": "observed",
+       "value": 0
+      },
+      "standard_deduction": {
+       "method": "irs_rp_2025_32",
+       "tier": "observed",
+       "value": 32200
+      }
+     },
+     "single": {
+      "brackets": {
+       "method": "irs_rp_2025_32",
+       "tier": "observed",
+       "value": [
+        {
+         "over": 0,
+         "rate": 0.1
+        },
+        {
+         "over": 12400,
+         "rate": 0.12
+        },
+        {
+         "over": 50400,
+         "rate": 0.22
+        },
+        {
+         "over": 105700,
+         "rate": 0.24
+        },
+        {
+         "over": 201775,
+         "rate": 0.32
+        },
+        {
+         "over": 256225,
+         "rate": 0.35
+        },
+        {
+         "over": 640600,
+         "rate": 0.37
+        }
+       ]
+      },
+      "personal_exemption": {
+       "method": "irs_no_personal_exemption",
+       "tier": "observed",
+       "value": 0
+      },
+      "standard_deduction": {
+       "method": "irs_rp_2025_32",
+       "tier": "observed",
+       "value": 16100
+      }
+     }
+    },
+    "jurisdiction": "US",
+    "kind": "income_tax",
+    "methods": {
+     "irs_no_personal_exemption": {
+      "as_of": "2025-10-09",
+      "description": "The federal personal exemption is $0 for tax year 2026 (\"personal exemptions remain at 0, as in tax year 2025\"; made permanent by the One, Big, Beautiful Bill).",
+      "inputs": [
+       {
+        "license": "U.S. government work (17 U.S.C. § 105)",
+        "source": "Internal Revenue Service",
+        "title": "IR-2025-103",
+        "url": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill"
+       }
+      ]
+     },
+     "irs_rp_2025_32": {
+      "as_of": "2025-10-09",
+      "description": "Federal tax rate schedules and basic standard deduction for tax year 2026, as published by the IRS.",
+      "inputs": [
+       {
+        "license": "U.S. government work (17 U.S.C. § 105)",
+        "source": "Internal Revenue Service",
+        "title": "Rev. Proc. 2025-32, sections 4.01 and 4.14",
+        "url": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf"
+       },
+       {
+        "license": "U.S. government work (17 U.S.C. § 105)",
+        "source": "Internal Revenue Service",
+        "title": "IR-2025-103, IRS releases tax inflation adjustments for tax year 2026",
+        "url": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill"
+       }
+      ]
+     }
+    },
+    "tax_year": 2026
+   }
+  }
+ },
+ "tax_year": 2026
+}
