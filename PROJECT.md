@@ -42,6 +42,7 @@ Full list in plan section 13. In short:
 - **Local income tax:** county-level taxes population-weighted; city-level taxes at the principal city's rate, labeled.
 - **Coverage:** 10-metro pilot, then all 393 ACS 1-year metros for the base components, then sales and local income tax state by state ("not yet covered" until done).
 - **Personal exemption credits (decided 2026-11-20):** where a state gives its personal exemption as a credit (e.g. California), it is applied as part of the personal exemption, an exception to excluding credits; the methodology page lists those states (plan 13.10).
+- **One earner (decided 2026-11-20):** the wage is one earner's pay; Married filing jointly means a single-earner couple, so FICA and the Social Security wage base apply to that one wage. Labeled in results; a second-earner input may come later (plan 13.11).
 - **Tax tables are hand-entered YAML (decided 2026-11-20),** not downloaded, because tax law comes as PDFs, worksheets and statutes. YAML lets each figure carry a comment citing its page or line. The pipeline validates them and hashes their parsed content for the snapshot test.
 - **Privacy:** user inputs never leave the browser or go into URLs.
 - **License:** MIT for code; data under each source's terms (DATA.md).
