@@ -18,7 +18,15 @@ a comment citing the page or line it came from). Every table has:
       married_joint: {...same fields...}
 
 `brackets` rows give the rate on income over each threshold; an empty list
-means no tax on wages.
+means no tax on wages. Rows may also carry `base`, the published tax at the
+row's threshold ("$X plus Y% of the excess over $Z"); then every row must, and
+the calculation uses the bases as published (some schedules round them or
+step up at a threshold, which adding rates up from zero can't reproduce). A filing status may also have
+`personal_exemption_income_limit`: above that income the exemption is $0.
+
+Any value may carry `year: <tax_year - 1>` when the state hasn't published the
+figure for the tax year yet (plan 13.12). It is used as is, not adjusted, and
+the site labels it. Without `year`, a value is for the table's tax year.
 
     kind: fica
     social_security: {rate: <value>, wage_base: <value>}
@@ -101,6 +109,9 @@ def _check_income_tax(label: str, t: dict, methods: dict) -> list[str]:
             continue
         for field in ("standard_deduction", "personal_exemption"):
             errors += _check_amount(f"{where}.{field}", entry.get(field), methods)
+        if "personal_exemption_income_limit" in entry:
+            errors += _check_amount(f"{where}.personal_exemption_income_limit",
+                                    entry["personal_exemption_income_limit"], methods)
         errors += _check_brackets(f"{where}.brackets", entry.get("brackets"), methods)
     return errors
 
@@ -138,7 +149,10 @@ def _is_number(x) -> bool:
 def _check_tagged(where: str, v, methods: dict) -> list[str]:
     if not isinstance(v, dict):
         return [f"{where}: missing"]
-    return tiers.check_value(where, v, methods)
+    errors = tiers.check_value(where, v, methods)
+    if "year" in v and v["year"] not in (TAX_YEAR, TAX_YEAR - 1):
+        errors.append(f"{where}: year must be {TAX_YEAR} or {TAX_YEAR - 1}, got {v['year']!r}")
+    return errors
 
 
 def _check_amount(where: str, v, methods: dict) -> list[str]:
@@ -163,11 +177,15 @@ def _check_brackets(where: str, v, methods: dict) -> list[str]:
     if not isinstance(rows, list):
         return [f"{where}: value must be a list"]
     prev = None
+    with_base = bool(rows) and isinstance(rows[0], dict) and "base" in rows[0]
+    keys = {"over", "rate", "base"} if with_base else {"over", "rate"}
     for i, row in enumerate(rows):
-        if not isinstance(row, dict) or set(row) != {"over", "rate"}:
-            errors.append(f"{where}[{i}]: must have exactly over and rate")
+        if not isinstance(row, dict) or set(row) != keys:
+            errors.append(f"{where}[{i}]: must have exactly {', '.join(sorted(keys))}")
             continue
         over, rate = row["over"], row["rate"]
+        if with_base and not (_is_number(row["base"]) and row["base"] >= 0):
+            errors.append(f"{where}[{i}]: base must be a non-negative number")
         if not (_is_number(over) and over >= 0):
             errors.append(f"{where}[{i}]: over must be a non-negative number")
             continue

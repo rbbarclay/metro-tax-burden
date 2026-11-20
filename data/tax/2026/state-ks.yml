@@ -1,0 +1,39 @@
+# Kansas individual income tax. 2026 figures aren't published yet, so every value is the 2025
+# figure (year: 2025), used as is (plan 13.12).
+# Source: 2025 Kansas Individual Income Tax booklet (HTML version, ksrevenue.gov/incomebook25.html):
+#   rates 5.2% / 5.58% with brackets at $23,000 (single) and $46,000 (joint); standard deduction
+#   "Single - $3,605", "Married Filing Joint - $8,240"; exemption allowance $9,160 (single) and
+#   $18,320 (married filing joint).
+kind: income_tax
+jurisdiction: state:KS
+tax_year: 2026
+methods:
+  ks_2025_booklet:
+    description: Kansas 2025 rates, standard deduction and exemption allowance, used for 2026 until 2026 figures are published.
+    as_of: "2025-09-26"
+    inputs:
+      - source: Kansas Department of Revenue
+        title: 2025 Kansas Individual Income Tax booklet
+        url: https://www.ksrevenue.gov/incomebook25.html
+        license: State publication (© Kansas Dept. of Revenue. All Rights Reserved.); reuse terms UNVERIFIED
+filing_status:
+  single:
+    standard_deduction: {value: 3605, year: 2025, tier: observed, method: ks_2025_booklet}
+    personal_exemption: {value: 9160, year: 2025, tier: observed, method: ks_2025_booklet}
+    brackets:
+      year: 2025
+      tier: observed
+      method: ks_2025_booklet
+      value:
+        - {over: 0, rate: 0.052}
+        - {over: 23000, rate: 0.0558}
+  married_joint:
+    standard_deduction: {value: 8240, year: 2025, tier: observed, method: ks_2025_booklet}
+    personal_exemption: {value: 18320, year: 2025, tier: observed, method: ks_2025_booklet}
+    brackets:
+      year: 2025
+      tier: observed
+      method: ks_2025_booklet
+      value:
+        - {over: 0, rate: 0.052}
+        - {over: 46000, rate: 0.0558}

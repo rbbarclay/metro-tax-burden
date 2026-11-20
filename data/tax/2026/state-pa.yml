@@ -1,0 +1,26 @@
+# Pennsylvania personal income tax, tax year 2026.
+# Source: PA Department of Revenue, personal income tax page (current, not dated for a tax year):
+#   "levied at the rate of 3.07 percent against taxable income of resident and nonresident individuals"
+#   "The Pennsylvania personal income tax does not provide for a standard deduction or personal exemption."
+# These quotes came from a summary of the page, not verbatim text; recheck against the PA-40 2026 instructions.
+kind: income_tax
+jurisdiction: state:PA
+tax_year: 2026
+methods:
+  pa_pit:
+    description: Flat 3.07% on taxable compensation, with no standard deduction or personal exemption. Current-law rate from the DOR page, checked 2026-11-20.
+    as_of: "2026-11-20"
+    inputs:
+      - source: Pennsylvania Department of Revenue
+        title: Personal income tax
+        url: https://www.pa.gov/en/agencies/revenue/resources/tax-types-and-information/personal-income-tax.html
+        license: State publication (site footer copyright 2026); reuse terms UNVERIFIED
+filing_status:
+  single:
+    standard_deduction: {value: 0, tier: observed, method: pa_pit}
+    personal_exemption: {value: 0, tier: observed, method: pa_pit}
+    brackets: {value: [{over: 0, rate: 0.0307}], tier: observed, method: pa_pit}
+  married_joint:
+    standard_deduction: {value: 0, tier: observed, method: pa_pit}
+    personal_exemption: {value: 0, tier: observed, method: pa_pit}
+    brackets: {value: [{over: 0, rate: 0.0307}], tier: observed, method: pa_pit}

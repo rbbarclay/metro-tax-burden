@@ -1,0 +1,23 @@
+# Alaska: no individual income tax on wages.
+# Source: https://tax.alaska.gov/programs/programs/index.aspx?10001
+#   "The State of Alaska currently does not have an individual income tax, therefore no employee withholding for state income tax is required."
+kind: income_tax
+jurisdiction: state:AK
+tax_year: 2026
+methods:
+  no_income_tax:
+    description: Alaska has no individual income tax, so wages are not taxed by the state.
+    as_of: "2026-11-20"
+    inputs:
+      - source: Alaska Department of Revenue, Tax Division
+        url: https://tax.alaska.gov/programs/programs/index.aspx?10001
+        license: State publication (site footer, Copyright © State of Alaska); reuse terms UNVERIFIED
+filing_status:
+  single:
+    standard_deduction: {value: 0, tier: observed, method: no_income_tax}
+    personal_exemption: {value: 0, tier: observed, method: no_income_tax}
+    brackets: {value: [], tier: observed, method: no_income_tax}
+  married_joint:
+    standard_deduction: {value: 0, tier: observed, method: no_income_tax}
+    personal_exemption: {value: 0, tier: observed, method: no_income_tax}
+    brackets: {value: [], tier: observed, method: no_income_tax}

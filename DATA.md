@@ -22,11 +22,26 @@ Only public or clearly licensed sources are used, preferring primary government 
 - **Terms:** as for the IRS entry above.
 - **Attribution text:** "Source: Internal Revenue Service"
 
+### State revenue departments and statutes: state income tax (`data/tax/2026/state-*.yml`)
+Checked 2026-11-20. Each table's YAML header quotes its sources, and its `methods` entries carry URLs. A `year: 2025` value is a prior-year fallback (plan 13.12). **Reuse terms:** the sites show copyright notices, often "All rights reserved", but none of their terms pages were reviewed (**UNVERIFIED**). Only the tax figures, which are facts of law, are used.
+
+| State | Tax year of figures | Sources | Notes |
+|---|---|---|---|
+| AK | 2026 | tax.alaska.gov Personal Income page | No individual income tax |
+| SD | 2026 | dor.sd.gov Individuals → Taxes | No state income tax |
+| WA | 2026 | dor.wa.gov Income tax page | No individual income tax; a 9.9% tax on AGI over $1M begins 2028 |
+| PA | 2026 (current law) | pa.gov personal income tax page | 3.07%, no deductions. Quotes came from a page summary; **recheck** against PA-40 2026 instructions |
+| KY | 2026 | KRS 141.020 (effective 2025-06-27); DOR 2026 standard deduction release; DOR withholding page | The joint-return standard deduction is an assumption (`estimated`) |
+| IL | 2026; AGI limit 2025 | IL-700-T 2026; 2025 IL-1040 instructions, Step 4 | |
+| NJ | Current schedules (2020 and after) | njtaxratesch.pdf; njit13 Exemptions and Deductions page; 2018-and-after tax table (test rows) | |
+| KS | 2025 | 2025 Kansas Individual Income Tax booklet (HTML) | |
+| MO | 2025 | DOR year-changes page; 2025 Tax Chart | No personal exemption assumed (`estimated`) |
+
 ## Planned
 
 All **UNVERIFIED**: URLs, table IDs and terms must be checked on the publisher's site before use.
 
-- **State revenue departments:** tax year 2026 income tax brackets, standard deductions and personal exemptions, plus worksheets or published examples for tests; sales tax rate files.
+- **State revenue departments:** income tax tables for the remaining states; sales tax rate files.
 - **Local jurisdictions:** ordinances and rate notices for local income taxes (plan section 5).
 - **BLS OEWS:** median hourly wage by metro, for the wage fallback.
 - **Census ACS 1-year (2025):** B25103 median real estate taxes paid, B25077 median home value.

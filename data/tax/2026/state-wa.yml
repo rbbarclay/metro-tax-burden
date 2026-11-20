@@ -1,0 +1,24 @@
+# Washington: no individual income tax on wages.
+# Source: https://dor.wa.gov/taxes-rates/income-tax
+# The same page says a 9.9% tax on AGI over $1 million begins Jan. 1, 2028; the capital gains tax is not a wage tax.
+#   "Washington does not currently have an individual income tax."
+kind: income_tax
+jurisdiction: state:WA
+tax_year: 2026
+methods:
+  no_income_tax:
+    description: Washington has no individual income tax, so wages are not taxed by the state.
+    as_of: "2026-11-20"
+    inputs:
+      - source: Washington State Department of Revenue
+        url: https://dor.wa.gov/taxes-rates/income-tax
+        license: State publication (site footer, Washington State Department of Revenue and its licensors. All rights reserved.); reuse terms UNVERIFIED
+filing_status:
+  single:
+    standard_deduction: {value: 0, tier: observed, method: no_income_tax}
+    personal_exemption: {value: 0, tier: observed, method: no_income_tax}
+    brackets: {value: [], tier: observed, method: no_income_tax}
+  married_joint:
+    standard_deduction: {value: 0, tier: observed, method: no_income_tax}
+    personal_exemption: {value: 0, tier: observed, method: no_income_tax}
+    brackets: {value: [], tier: observed, method: no_income_tax}

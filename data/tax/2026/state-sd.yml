@@ -1,0 +1,23 @@
+# South Dakota: no individual income tax on wages.
+# Source: https://dor.sd.gov/individuals/taxes/
+#   "South Dakota is one of seven states that does not impose a state income tax."
+kind: income_tax
+jurisdiction: state:SD
+tax_year: 2026
+methods:
+  no_income_tax:
+    description: South Dakota has no individual income tax, so wages are not taxed by the state.
+    as_of: "2026-11-20"
+    inputs:
+      - source: South Dakota Department of Revenue
+        url: https://dor.sd.gov/individuals/taxes/
+        license: State publication (site footer, © Copyright 2026 - State of South Dakota); reuse terms UNVERIFIED
+filing_status:
+  single:
+    standard_deduction: {value: 0, tier: observed, method: no_income_tax}
+    personal_exemption: {value: 0, tier: observed, method: no_income_tax}
+    brackets: {value: [], tier: observed, method: no_income_tax}
+  married_joint:
+    standard_deduction: {value: 0, tier: observed, method: no_income_tax}
+    personal_exemption: {value: 0, tier: observed, method: no_income_tax}
+    brackets: {value: [], tier: observed, method: no_income_tax}

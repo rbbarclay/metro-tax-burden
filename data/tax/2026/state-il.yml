@@ -1,0 +1,45 @@
+# Illinois individual income tax, tax year 2026.
+# Rate and exemption: IL-700-T, 2026 Illinois Withholding Tax Tables: "The income tax rate is
+#   4.95 percent and the exemption allowance is $2,925." Joint returns get one exemption per spouse.
+# Exemption income limit: 2025 IL-1040 instructions, Step 4: no exemption allowance if federal AGI is
+#   greater than $250,000 ($500,000 if married filing jointly). The 2026 limits aren't published yet.
+# No standard deduction: the IL-1040 has no standard deduction line (2025 instructions, Steps 3-5).
+kind: income_tax
+jurisdiction: state:IL
+tax_year: 2026
+methods:
+  il_700_t_2026:
+    description: Flat 4.95% rate and $2,925 personal exemption allowance per person for 2026.
+    as_of: "2026-01-01"
+    inputs:
+      - source: Illinois Department of Revenue
+        title: IL-700-T, 2026 Illinois Withholding Tax Tables
+        url: https://tax.illinois.gov/forms/withholding/currentyear/il-700-t-withholding-guide-tables.html
+        license: State publication (site footer © 2026); reuse terms UNVERIFIED
+  il_1040_2025_limits:
+    description: No exemption allowance if federal AGI is over $250,000 (single) or $500,000 (married filing jointly). 2025 limits, used for 2026 until the 2026 instructions are published.
+    as_of: "2025-12"
+    inputs:
+      - source: Illinois Department of Revenue
+        title: 2025 IL-1040 instructions, Step 4 (Exemptions)
+        url: https://tax.illinois.gov/forms/incometax/currentyear/individual/il-1040-instr/step-4---exemptions.html
+        license: State publication (site footer © 2026); reuse terms UNVERIFIED
+  il_no_standard_deduction:
+    description: Illinois has no standard deduction; the IL-1040 goes from base income to exemptions with no standard deduction line.
+    as_of: "2025-12"
+    inputs:
+      - source: Illinois Department of Revenue
+        title: 2025 IL-1040 instructions, Steps 3 to 5
+        url: https://tax.illinois.gov/forms/incometax/currentyear/individual/il-1040-instr.html
+        license: State publication (site footer © 2026); reuse terms UNVERIFIED
+filing_status:
+  single:
+    standard_deduction: {value: 0, tier: observed, method: il_no_standard_deduction}
+    personal_exemption: {value: 2925, tier: observed, method: il_700_t_2026}
+    personal_exemption_income_limit: {value: 250000, year: 2025, tier: observed, method: il_1040_2025_limits}
+    brackets: {value: [{over: 0, rate: 0.0495}], tier: observed, method: il_700_t_2026}
+  married_joint:
+    standard_deduction: {value: 0, tier: observed, method: il_no_standard_deduction}
+    personal_exemption: {value: 5850, tier: observed, method: il_700_t_2026}   # 2 x $2,925
+    personal_exemption_income_limit: {value: 500000, year: 2025, tier: observed, method: il_1040_2025_limits}
+    brackets: {value: [{over: 0, rate: 0.0495}], tier: observed, method: il_700_t_2026}

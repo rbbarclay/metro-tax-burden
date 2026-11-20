@@ -43,6 +43,18 @@ def test_valid_table_passes():
     assert taxtables.check_table("t", VALID) == []
 
 
+def test_prior_year_values_and_exemption_limit_are_allowed():
+    def change(t):
+        single(t)["standard_deduction"]["year"] = 2025
+        single(t)["personal_exemption_income_limit"] = {"value": 250000, "tier": "observed", "method": "xx_2026"}
+    assert taxtables.check_table("t", mutated(change)) == []
+
+
+def test_rows_with_published_bases_pass():
+    t = mutated(lambda t: [r.update(base=b) for r, b in zip(single(t)["brackets"]["value"], [0, 200])])
+    assert taxtables.check_table("t", t) == []
+
+
 def test_no_income_tax_is_an_empty_bracket_list():
     t = mutated(lambda t: single(t)["brackets"].update(value=[]))
     assert taxtables.check_table("t", t) == []
@@ -64,7 +76,12 @@ def test_no_income_tax_is_an_empty_bracket_list():
     (lambda t: single(t)["brackets"]["value"][0].update(over=100), "first bracket must start at 0"),
     (lambda t: single(t)["brackets"]["value"][1].update(over=0), "thresholds must increase"),
     (lambda t: single(t)["brackets"]["value"][1].update(rate=5), "rate must be a fraction"),
-    (lambda t: single(t)["brackets"]["value"][1].update(extra=1), "must have exactly over and rate"),
+    (lambda t: single(t)["brackets"]["value"][1].update(extra=1), "must have exactly over, rate"),
+    (lambda t: single(t)["brackets"]["value"][0].update(base=0), "[1]: must have exactly base, over, rate"),
+    (lambda t: [r.update(base=-1) for r in single(t)["brackets"]["value"]], "base must be a non-negative number"),
+    (lambda t: single(t)["standard_deduction"].update(year=2024), "year must be 2026 or 2025"),
+    (lambda t: single(t).update(personal_exemption_income_limit={"value": -5, "tier": "observed", "method": "xx_2026"}),
+     "personal_exemption_income_limit: value must be a non-negative number"),
 ])
 def test_invalid_tables_are_rejected(change, message):
     errors = taxtables.check_table("t", mutated(change))

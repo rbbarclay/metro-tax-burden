@@ -1,0 +1,59 @@
+# Kentucky individual income tax, tax year 2026.
+# Rate: KRS 141.020(2)(f): "For taxable years beginning on or after January 1, 2026, the tax shall be
+#   three and one-half percent (3.5%) of net income." (statute effective June 27, 2025).
+#   Matches the DOR withholding page ("3.5% for tax year 2026"). The DOR's undated individual income
+#   tax page still says 4%, which KRS 141.020(2)(e) limits to 2024 and 2025.
+# Standard deduction: DOR news release, Sept. 4, 2025: "the standard deduction for 2026 is $3,360".
+# No personal exemption; the $40 personal credits apply only for age 65+, blindness or National Guard.
+kind: income_tax
+jurisdiction: state:KY
+tax_year: 2026
+methods:
+  krs_141_020:
+    description: Flat 3.5% rate on net income for taxable years beginning in 2026 (KRS 141.020(2)(f)).
+    as_of: "2025-06-27"
+    inputs:
+      - source: Kentucky General Assembly
+        title: KRS 141.020
+        url: https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=56339
+        license: State statute (public law); site reuse terms UNVERIFIED
+      - source: Kentucky Department of Revenue
+        title: Employer payroll withholding
+        url: https://revenue.ky.gov/Business/Pages/Employer-Payroll-Withholding.aspx
+        license: State publication (© Commonwealth of Kentucky. All rights reserved.); reuse terms UNVERIFIED
+  ky_std_2026:
+    description: Kentucky standard deduction for 2026, $3,360, indexed under KRS 141.081.
+    as_of: "2025-09-04"
+    inputs:
+      - source: Kentucky Department of Revenue
+        title: Kentucky DOR announces 2026 standard deduction
+        url: https://revenue.ky.gov/News/Pages/Kentucky-DOR-Announces-2026-Standard-Deduction.aspx
+        license: State publication (© Commonwealth of Kentucky. All rights reserved.); reuse terms UNVERIFIED
+  ky_std_joint_assumption:
+    description: >-
+      Assumes a single-earner married couple filing jointly takes one $3,360 standard deduction.
+      KRS 141.081 grants the deduction per individual; how it applies on a joint return was not
+      confirmed against the Form 740 instructions.
+    as_of: "2025-09-04"
+    inputs:
+      - source: Kentucky General Assembly
+        title: KRS 141.081
+        url: https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=29067
+        license: State statute (public law); site reuse terms UNVERIFIED
+  ky_no_exemption:
+    description: Kentucky has no personal exemption deduction; its personal tax credits apply only for age 65 or over, blindness, or National Guard service.
+    as_of: "2025-06-27"
+    inputs:
+      - source: Kentucky General Assembly
+        title: KRS 141.020
+        url: https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=56339
+        license: State statute (public law); site reuse terms UNVERIFIED
+filing_status:
+  single:
+    standard_deduction: {value: 3360, tier: observed, method: ky_std_2026}
+    personal_exemption: {value: 0, tier: observed, method: ky_no_exemption}
+    brackets: {value: [{over: 0, rate: 0.035}], tier: observed, method: krs_141_020}
+  married_joint:
+    standard_deduction: {value: 3360, tier: estimated, method: ky_std_joint_assumption}
+    personal_exemption: {value: 0, tier: observed, method: ky_no_exemption}
+    brackets: {value: [{over: 0, rate: 0.035}], tier: observed, method: krs_141_020}

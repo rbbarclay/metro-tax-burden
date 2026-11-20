@@ -1,0 +1,57 @@
+# New Jersey gross income tax, tax year 2026.
+# Rates: "New Jersey Tax Rate Schedules 2020" (linked as "2020 and After" from the tax tables page,
+#   last updated 09/28/26). Each row is "multiply by rate, then subtract"; `base` is the tax at each
+#   threshold implied by that row (rate x threshold - subtraction). Table B's $70,000-$80,000 row is
+#   50 cents above its neighbors as published, and the bases keep it that way.
+# Exemptions: Exemptions and Deductions page: "You can claim a $1,000 exemption for yourself and your
+#   spouse/CU partner (if filing a joint return)". The page lists no standard deduction.
+kind: income_tax
+jurisdiction: state:NJ
+tax_year: 2026
+methods:
+  nj_rate_schedules:
+    description: New Jersey tax rate schedules, Table A (single) and Table B (married/CU couple filing jointly), in effect for 2020 and after.
+    as_of: "2026-09-28"
+    inputs:
+      - source: New Jersey Division of Taxation
+        title: New Jersey Tax Rate Schedules (2020 and after)
+        url: https://www.nj.gov/treasury/taxation/pdf/current/njtaxratesch.pdf
+        license: State publication (Copyright © State of New Jersey); reuse terms UNVERIFIED
+  nj_exemptions:
+    description: $1,000 regular exemption for the taxpayer and, on a joint return, the spouse. New Jersey has no standard deduction.
+    as_of: "2025-12-03"
+    inputs:
+      - source: New Jersey Division of Taxation
+        title: Exemptions and deductions
+        url: https://www.nj.gov/treasury/taxation/njit13.shtml
+        license: State publication (Copyright © State of New Jersey); reuse terms UNVERIFIED
+filing_status:
+  single:
+    standard_deduction: {value: 0, tier: observed, method: nj_exemptions}
+    personal_exemption: {value: 1000, tier: observed, method: nj_exemptions}
+    brackets:
+      tier: observed
+      method: nj_rate_schedules
+      value:   # Table A
+        - {over: 0, rate: 0.014, base: 0}
+        - {over: 20000, rate: 0.0175, base: 280}
+        - {over: 35000, rate: 0.035, base: 542.5}
+        - {over: 40000, rate: 0.05525, base: 717.5}
+        - {over: 75000, rate: 0.0637, base: 2651.25}
+        - {over: 500000, rate: 0.0897, base: 29723.75}
+        - {over: 1000000, rate: 0.1075, base: 74573.75}
+  married_joint:
+    standard_deduction: {value: 0, tier: observed, method: nj_exemptions}
+    personal_exemption: {value: 2000, tier: observed, method: nj_exemptions}
+    brackets:
+      tier: observed
+      method: nj_rate_schedules
+      value:   # Table B
+        - {over: 0, rate: 0.014, base: 0}
+        - {over: 20000, rate: 0.0175, base: 280}
+        - {over: 50000, rate: 0.0245, base: 805}
+        - {over: 70000, rate: 0.035, base: 1295.5}
+        - {over: 80000, rate: 0.05525, base: 1645}
+        - {over: 150000, rate: 0.0637, base: 5512.5}
+        - {over: 500000, rate: 0.0897, base: 27807.5}
+        - {over: 1000000, rate: 0.1075, base: 72657.5}

@@ -1,0 +1,61 @@
+# Missouri individual income tax. 2026 figures aren't published yet, so values are the 2025
+# figures (year: 2025), used as is (plan 13.12).
+# Rates: DOR "Tax Rate Changes - Indexed for Inflation" table, tax year 2025 ("The individual income
+#   tax rate for tax year 2025 is 4.7%"); one schedule for all filers. Bases are the chart's whole-dollar
+#   "tax from your tax bracket" amounts, which the official worksheet adds as is. The 2025 Tax Chart says "A
+#   separate tax must be computed for you and your spouse": for a single-earner couple that is one
+#   computation on the earner's income, as modeled here.
+# Standard deduction: same page, 2025 updates: Single $15,750; married filing combined $31,500.
+kind: income_tax
+jurisdiction: state:MO
+tax_year: 2026
+methods:
+  mo_2025_rates:
+    description: Missouri 2025 tax rate chart (0% up to $1,313, then 2.0% to 4.7%), one schedule for all filers, used for 2026 until 2026 figures are published.
+    as_of: "2025-12-23"
+    inputs:
+      - source: Missouri Department of Revenue
+        title: Individual income tax year changes (tax rate table, tax year 2025)
+        url: https://dor.mo.gov/taxation/individual/tax-types/income/year-changes/
+        license: State publication; no copyright or terms statement found; reuse terms UNVERIFIED
+      - source: Missouri Department of Revenue
+        title: 2025 Tax Chart
+        url: https://dor.mo.gov/forms/2025%20Tax%20Chart_2025.pdf
+        license: State publication; no copyright or terms statement found; reuse terms UNVERIFIED
+  mo_2025_std:
+    description: Missouri 2025 standard deduction, used for 2026 until 2026 figures are published.
+    as_of: "2025-12-23"
+    inputs:
+      - source: Missouri Department of Revenue
+        title: Individual income tax year changes (standard deduction, 2025 updates)
+        url: https://dor.mo.gov/taxation/individual/tax-types/income/year-changes/
+        license: State publication; no copyright or terms statement found; reuse terms UNVERIFIED
+  mo_no_exemption_assumed:
+    description: No personal exemption is applied. None appears in the 2025 tax chart or the DOR year-changes page; not confirmed against the MO-1040 instructions.
+    as_of: "2025-12-23"
+    inputs:
+      - source: Missouri Department of Revenue
+        title: Individual income tax year changes
+        url: https://dor.mo.gov/taxation/individual/tax-types/income/year-changes/
+        license: State publication; no copyright or terms statement found; reuse terms UNVERIFIED
+filing_status:
+  single:
+    standard_deduction: {value: 15750, year: 2025, tier: observed, method: mo_2025_std}
+    personal_exemption: {value: 0, tier: estimated, method: mo_no_exemption_assumed}
+    brackets: &mo_brackets
+      year: 2025
+      tier: observed
+      method: mo_2025_rates
+      value:
+        - {over: 0, rate: 0, base: 0}
+        - {over: 1313, rate: 0.02, base: 0}
+        - {over: 2626, rate: 0.025, base: 26}    # $26 plus 2.5% of the excess
+        - {over: 3939, rate: 0.03, base: 59}     # $59 plus 3%
+        - {over: 5252, rate: 0.035, base: 98}    # $98 plus 3.5%
+        - {over: 6565, rate: 0.04, base: 144}     # $144 plus 4%
+        - {over: 7878, rate: 0.045, base: 197}    # $197 plus 4.5%
+        - {over: 9191, rate: 0.047, base: 256}    # $256 plus 4.7%
+  married_joint:
+    standard_deduction: {value: 31500, year: 2025, tier: observed, method: mo_2025_std}
+    personal_exemption: {value: 0, tier: estimated, method: mo_no_exemption_assumed}
+    brackets: *mo_brackets

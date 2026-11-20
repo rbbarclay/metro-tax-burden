@@ -203,6 +203,853 @@
     },
     "tax_year": 2026
    }
+  },
+  "state:AK": {
+   "income_tax": {
+    "filing_status": {
+     "married_joint": {
+      "brackets": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": []
+      },
+      "personal_exemption": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": 0
+      },
+      "standard_deduction": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": 0
+      }
+     },
+     "single": {
+      "brackets": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": []
+      },
+      "personal_exemption": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": 0
+      },
+      "standard_deduction": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": 0
+      }
+     }
+    },
+    "jurisdiction": "state:AK",
+    "kind": "income_tax",
+    "methods": {
+     "no_income_tax": {
+      "as_of": "2026-11-20",
+      "description": "Alaska has no individual income tax, so wages are not taxed by the state.",
+      "inputs": [
+       {
+        "license": "State publication (site footer, Copyright © State of Alaska); reuse terms UNVERIFIED",
+        "source": "Alaska Department of Revenue, Tax Division",
+        "url": "https://tax.alaska.gov/programs/programs/index.aspx?10001"
+       }
+      ]
+     }
+    },
+    "tax_year": 2026
+   }
+  },
+  "state:IL": {
+   "income_tax": {
+    "filing_status": {
+     "married_joint": {
+      "brackets": {
+       "method": "il_700_t_2026",
+       "tier": "observed",
+       "value": [
+        {
+         "over": 0,
+         "rate": 0.0495
+        }
+       ]
+      },
+      "personal_exemption": {
+       "method": "il_700_t_2026",
+       "tier": "observed",
+       "value": 5850
+      },
+      "personal_exemption_income_limit": {
+       "method": "il_1040_2025_limits",
+       "tier": "observed",
+       "value": 500000,
+       "year": 2025
+      },
+      "standard_deduction": {
+       "method": "il_no_standard_deduction",
+       "tier": "observed",
+       "value": 0
+      }
+     },
+     "single": {
+      "brackets": {
+       "method": "il_700_t_2026",
+       "tier": "observed",
+       "value": [
+        {
+         "over": 0,
+         "rate": 0.0495
+        }
+       ]
+      },
+      "personal_exemption": {
+       "method": "il_700_t_2026",
+       "tier": "observed",
+       "value": 2925
+      },
+      "personal_exemption_income_limit": {
+       "method": "il_1040_2025_limits",
+       "tier": "observed",
+       "value": 250000,
+       "year": 2025
+      },
+      "standard_deduction": {
+       "method": "il_no_standard_deduction",
+       "tier": "observed",
+       "value": 0
+      }
+     }
+    },
+    "jurisdiction": "state:IL",
+    "kind": "income_tax",
+    "methods": {
+     "il_1040_2025_limits": {
+      "as_of": "2025-12",
+      "description": "No exemption allowance if federal AGI is over $250,000 (single) or $500,000 (married filing jointly). 2025 limits, used for 2026 until the 2026 instructions are published.",
+      "inputs": [
+       {
+        "license": "State publication (site footer © 2026); reuse terms UNVERIFIED",
+        "source": "Illinois Department of Revenue",
+        "title": "2025 IL-1040 instructions, Step 4 (Exemptions)",
+        "url": "https://tax.illinois.gov/forms/incometax/currentyear/individual/il-1040-instr/step-4---exemptions.html"
+       }
+      ]
+     },
+     "il_700_t_2026": {
+      "as_of": "2026-01-01",
+      "description": "Flat 4.95% rate and $2,925 personal exemption allowance per person for 2026.",
+      "inputs": [
+       {
+        "license": "State publication (site footer © 2026); reuse terms UNVERIFIED",
+        "source": "Illinois Department of Revenue",
+        "title": "IL-700-T, 2026 Illinois Withholding Tax Tables",
+        "url": "https://tax.illinois.gov/forms/withholding/currentyear/il-700-t-withholding-guide-tables.html"
+       }
+      ]
+     },
+     "il_no_standard_deduction": {
+      "as_of": "2025-12",
+      "description": "Illinois has no standard deduction; the IL-1040 goes from base income to exemptions with no standard deduction line.",
+      "inputs": [
+       {
+        "license": "State publication (site footer © 2026); reuse terms UNVERIFIED",
+        "source": "Illinois Department of Revenue",
+        "title": "2025 IL-1040 instructions, Steps 3 to 5",
+        "url": "https://tax.illinois.gov/forms/incometax/currentyear/individual/il-1040-instr.html"
+       }
+      ]
+     }
+    },
+    "tax_year": 2026
+   }
+  },
+  "state:KS": {
+   "income_tax": {
+    "filing_status": {
+     "married_joint": {
+      "brackets": {
+       "method": "ks_2025_booklet",
+       "tier": "observed",
+       "value": [
+        {
+         "over": 0,
+         "rate": 0.052
+        },
+        {
+         "over": 46000,
+         "rate": 0.0558
+        }
+       ],
+       "year": 2025
+      },
+      "personal_exemption": {
+       "method": "ks_2025_booklet",
+       "tier": "observed",
+       "value": 18320,
+       "year": 2025
+      },
+      "standard_deduction": {
+       "method": "ks_2025_booklet",
+       "tier": "observed",
+       "value": 8240,
+       "year": 2025
+      }
+     },
+     "single": {
+      "brackets": {
+       "method": "ks_2025_booklet",
+       "tier": "observed",
+       "value": [
+        {
+         "over": 0,
+         "rate": 0.052
+        },
+        {
+         "over": 23000,
+         "rate": 0.0558
+        }
+       ],
+       "year": 2025
+      },
+      "personal_exemption": {
+       "method": "ks_2025_booklet",
+       "tier": "observed",
+       "value": 9160,
+       "year": 2025
+      },
+      "standard_deduction": {
+       "method": "ks_2025_booklet",
+       "tier": "observed",
+       "value": 3605,
+       "year": 2025
+      }
+     }
+    },
+    "jurisdiction": "state:KS",
+    "kind": "income_tax",
+    "methods": {
+     "ks_2025_booklet": {
+      "as_of": "2025-09-26",
+      "description": "Kansas 2025 rates, standard deduction and exemption allowance, used for 2026 until 2026 figures are published.",
+      "inputs": [
+       {
+        "license": "State publication (© Kansas Dept. of Revenue. All Rights Reserved.); reuse terms UNVERIFIED",
+        "source": "Kansas Department of Revenue",
+        "title": "2025 Kansas Individual Income Tax booklet",
+        "url": "https://www.ksrevenue.gov/incomebook25.html"
+       }
+      ]
+     }
+    },
+    "tax_year": 2026
+   }
+  },
+  "state:KY": {
+   "income_tax": {
+    "filing_status": {
+     "married_joint": {
+      "brackets": {
+       "method": "krs_141_020",
+       "tier": "observed",
+       "value": [
+        {
+         "over": 0,
+         "rate": 0.035
+        }
+       ]
+      },
+      "personal_exemption": {
+       "method": "ky_no_exemption",
+       "tier": "observed",
+       "value": 0
+      },
+      "standard_deduction": {
+       "method": "ky_std_joint_assumption",
+       "tier": "estimated",
+       "value": 3360
+      }
+     },
+     "single": {
+      "brackets": {
+       "method": "krs_141_020",
+       "tier": "observed",
+       "value": [
+        {
+         "over": 0,
+         "rate": 0.035
+        }
+       ]
+      },
+      "personal_exemption": {
+       "method": "ky_no_exemption",
+       "tier": "observed",
+       "value": 0
+      },
+      "standard_deduction": {
+       "method": "ky_std_2026",
+       "tier": "observed",
+       "value": 3360
+      }
+     }
+    },
+    "jurisdiction": "state:KY",
+    "kind": "income_tax",
+    "methods": {
+     "krs_141_020": {
+      "as_of": "2025-06-27",
+      "description": "Flat 3.5% rate on net income for taxable years beginning in 2026 (KRS 141.020(2)(f)).",
+      "inputs": [
+       {
+        "license": "State statute (public law); site reuse terms UNVERIFIED",
+        "source": "Kentucky General Assembly",
+        "title": "KRS 141.020",
+        "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=56339"
+       },
+       {
+        "license": "State publication (© Commonwealth of Kentucky. All rights reserved.); reuse terms UNVERIFIED",
+        "source": "Kentucky Department of Revenue",
+        "title": "Employer payroll withholding",
+        "url": "https://revenue.ky.gov/Business/Pages/Employer-Payroll-Withholding.aspx"
+       }
+      ]
+     },
+     "ky_no_exemption": {
+      "as_of": "2025-06-27",
+      "description": "Kentucky has no personal exemption deduction; its personal tax credits apply only for age 65 or over, blindness, or National Guard service.",
+      "inputs": [
+       {
+        "license": "State statute (public law); site reuse terms UNVERIFIED",
+        "source": "Kentucky General Assembly",
+        "title": "KRS 141.020",
+        "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=56339"
+       }
+      ]
+     },
+     "ky_std_2026": {
+      "as_of": "2025-09-04",
+      "description": "Kentucky standard deduction for 2026, $3,360, indexed under KRS 141.081.",
+      "inputs": [
+       {
+        "license": "State publication (© Commonwealth of Kentucky. All rights reserved.); reuse terms UNVERIFIED",
+        "source": "Kentucky Department of Revenue",
+        "title": "Kentucky DOR announces 2026 standard deduction",
+        "url": "https://revenue.ky.gov/News/Pages/Kentucky-DOR-Announces-2026-Standard-Deduction.aspx"
+       }
+      ]
+     },
+     "ky_std_joint_assumption": {
+      "as_of": "2025-09-04",
+      "description": "Assumes a single-earner married couple filing jointly takes one $3,360 standard deduction. KRS 141.081 grants the deduction per individual; how it applies on a joint return was not confirmed against the Form 740 instructions.",
+      "inputs": [
+       {
+        "license": "State statute (public law); site reuse terms UNVERIFIED",
+        "source": "Kentucky General Assembly",
+        "title": "KRS 141.081",
+        "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=29067"
+       }
+      ]
+     }
+    },
+    "tax_year": 2026
+   }
+  },
+  "state:MO": {
+   "income_tax": {
+    "filing_status": {
+     "married_joint": {
+      "brackets": {
+       "method": "mo_2025_rates",
+       "tier": "observed",
+       "value": [
+        {
+         "base": 0,
+         "over": 0,
+         "rate": 0
+        },
+        {
+         "base": 0,
+         "over": 1313,
+         "rate": 0.02
+        },
+        {
+         "base": 26,
+         "over": 2626,
+         "rate": 0.025
+        },
+        {
+         "base": 59,
+         "over": 3939,
+         "rate": 0.03
+        },
+        {
+         "base": 98,
+         "over": 5252,
+         "rate": 0.035
+        },
+        {
+         "base": 144,
+         "over": 6565,
+         "rate": 0.04
+        },
+        {
+         "base": 197,
+         "over": 7878,
+         "rate": 0.045
+        },
+        {
+         "base": 256,
+         "over": 9191,
+         "rate": 0.047
+        }
+       ],
+       "year": 2025
+      },
+      "personal_exemption": {
+       "method": "mo_no_exemption_assumed",
+       "tier": "estimated",
+       "value": 0
+      },
+      "standard_deduction": {
+       "method": "mo_2025_std",
+       "tier": "observed",
+       "value": 31500,
+       "year": 2025
+      }
+     },
+     "single": {
+      "brackets": {
+       "method": "mo_2025_rates",
+       "tier": "observed",
+       "value": [
+        {
+         "base": 0,
+         "over": 0,
+         "rate": 0
+        },
+        {
+         "base": 0,
+         "over": 1313,
+         "rate": 0.02
+        },
+        {
+         "base": 26,
+         "over": 2626,
+         "rate": 0.025
+        },
+        {
+         "base": 59,
+         "over": 3939,
+         "rate": 0.03
+        },
+        {
+         "base": 98,
+         "over": 5252,
+         "rate": 0.035
+        },
+        {
+         "base": 144,
+         "over": 6565,
+         "rate": 0.04
+        },
+        {
+         "base": 197,
+         "over": 7878,
+         "rate": 0.045
+        },
+        {
+         "base": 256,
+         "over": 9191,
+         "rate": 0.047
+        }
+       ],
+       "year": 2025
+      },
+      "personal_exemption": {
+       "method": "mo_no_exemption_assumed",
+       "tier": "estimated",
+       "value": 0
+      },
+      "standard_deduction": {
+       "method": "mo_2025_std",
+       "tier": "observed",
+       "value": 15750,
+       "year": 2025
+      }
+     }
+    },
+    "jurisdiction": "state:MO",
+    "kind": "income_tax",
+    "methods": {
+     "mo_2025_rates": {
+      "as_of": "2025-12-23",
+      "description": "Missouri 2025 tax rate chart (0% up to $1,313, then 2.0% to 4.7%), one schedule for all filers, used for 2026 until 2026 figures are published.",
+      "inputs": [
+       {
+        "license": "State publication; no copyright or terms statement found; reuse terms UNVERIFIED",
+        "source": "Missouri Department of Revenue",
+        "title": "Individual income tax year changes (tax rate table, tax year 2025)",
+        "url": "https://dor.mo.gov/taxation/individual/tax-types/income/year-changes/"
+       },
+       {
+        "license": "State publication; no copyright or terms statement found; reuse terms UNVERIFIED",
+        "source": "Missouri Department of Revenue",
+        "title": "2025 Tax Chart",
+        "url": "https://dor.mo.gov/forms/2025%20Tax%20Chart_2025.pdf"
+       }
+      ]
+     },
+     "mo_2025_std": {
+      "as_of": "2025-12-23",
+      "description": "Missouri 2025 standard deduction, used for 2026 until 2026 figures are published.",
+      "inputs": [
+       {
+        "license": "State publication; no copyright or terms statement found; reuse terms UNVERIFIED",
+        "source": "Missouri Department of Revenue",
+        "title": "Individual income tax year changes (standard deduction, 2025 updates)",
+        "url": "https://dor.mo.gov/taxation/individual/tax-types/income/year-changes/"
+       }
+      ]
+     },
+     "mo_no_exemption_assumed": {
+      "as_of": "2025-12-23",
+      "description": "No personal exemption is applied. None appears in the 2025 tax chart or the DOR year-changes page; not confirmed against the MO-1040 instructions.",
+      "inputs": [
+       {
+        "license": "State publication; no copyright or terms statement found; reuse terms UNVERIFIED",
+        "source": "Missouri Department of Revenue",
+        "title": "Individual income tax year changes",
+        "url": "https://dor.mo.gov/taxation/individual/tax-types/income/year-changes/"
+       }
+      ]
+     }
+    },
+    "tax_year": 2026
+   }
+  },
+  "state:NJ": {
+   "income_tax": {
+    "filing_status": {
+     "married_joint": {
+      "brackets": {
+       "method": "nj_rate_schedules",
+       "tier": "observed",
+       "value": [
+        {
+         "base": 0,
+         "over": 0,
+         "rate": 0.014
+        },
+        {
+         "base": 280,
+         "over": 20000,
+         "rate": 0.0175
+        },
+        {
+         "base": 805,
+         "over": 50000,
+         "rate": 0.0245
+        },
+        {
+         "base": 1295.5,
+         "over": 70000,
+         "rate": 0.035
+        },
+        {
+         "base": 1645,
+         "over": 80000,
+         "rate": 0.05525
+        },
+        {
+         "base": 5512.5,
+         "over": 150000,
+         "rate": 0.0637
+        },
+        {
+         "base": 27807.5,
+         "over": 500000,
+         "rate": 0.0897
+        },
+        {
+         "base": 72657.5,
+         "over": 1000000,
+         "rate": 0.1075
+        }
+       ]
+      },
+      "personal_exemption": {
+       "method": "nj_exemptions",
+       "tier": "observed",
+       "value": 2000
+      },
+      "standard_deduction": {
+       "method": "nj_exemptions",
+       "tier": "observed",
+       "value": 0
+      }
+     },
+     "single": {
+      "brackets": {
+       "method": "nj_rate_schedules",
+       "tier": "observed",
+       "value": [
+        {
+         "base": 0,
+         "over": 0,
+         "rate": 0.014
+        },
+        {
+         "base": 280,
+         "over": 20000,
+         "rate": 0.0175
+        },
+        {
+         "base": 542.5,
+         "over": 35000,
+         "rate": 0.035
+        },
+        {
+         "base": 717.5,
+         "over": 40000,
+         "rate": 0.05525
+        },
+        {
+         "base": 2651.25,
+         "over": 75000,
+         "rate": 0.0637
+        },
+        {
+         "base": 29723.75,
+         "over": 500000,
+         "rate": 0.0897
+        },
+        {
+         "base": 74573.75,
+         "over": 1000000,
+         "rate": 0.1075
+        }
+       ]
+      },
+      "personal_exemption": {
+       "method": "nj_exemptions",
+       "tier": "observed",
+       "value": 1000
+      },
+      "standard_deduction": {
+       "method": "nj_exemptions",
+       "tier": "observed",
+       "value": 0
+      }
+     }
+    },
+    "jurisdiction": "state:NJ",
+    "kind": "income_tax",
+    "methods": {
+     "nj_exemptions": {
+      "as_of": "2025-12-03",
+      "description": "$1,000 regular exemption for the taxpayer and, on a joint return, the spouse. New Jersey has no standard deduction.",
+      "inputs": [
+       {
+        "license": "State publication (Copyright © State of New Jersey); reuse terms UNVERIFIED",
+        "source": "New Jersey Division of Taxation",
+        "title": "Exemptions and deductions",
+        "url": "https://www.nj.gov/treasury/taxation/njit13.shtml"
+       }
+      ]
+     },
+     "nj_rate_schedules": {
+      "as_of": "2026-09-28",
+      "description": "New Jersey tax rate schedules, Table A (single) and Table B (married/CU couple filing jointly), in effect for 2020 and after.",
+      "inputs": [
+       {
+        "license": "State publication (Copyright © State of New Jersey); reuse terms UNVERIFIED",
+        "source": "New Jersey Division of Taxation",
+        "title": "New Jersey Tax Rate Schedules (2020 and after)",
+        "url": "https://www.nj.gov/treasury/taxation/pdf/current/njtaxratesch.pdf"
+       }
+      ]
+     }
+    },
+    "tax_year": 2026
+   }
+  },
+  "state:PA": {
+   "income_tax": {
+    "filing_status": {
+     "married_joint": {
+      "brackets": {
+       "method": "pa_pit",
+       "tier": "observed",
+       "value": [
+        {
+         "over": 0,
+         "rate": 0.0307
+        }
+       ]
+      },
+      "personal_exemption": {
+       "method": "pa_pit",
+       "tier": "observed",
+       "value": 0
+      },
+      "standard_deduction": {
+       "method": "pa_pit",
+       "tier": "observed",
+       "value": 0
+      }
+     },
+     "single": {
+      "brackets": {
+       "method": "pa_pit",
+       "tier": "observed",
+       "value": [
+        {
+         "over": 0,
+         "rate": 0.0307
+        }
+       ]
+      },
+      "personal_exemption": {
+       "method": "pa_pit",
+       "tier": "observed",
+       "value": 0
+      },
+      "standard_deduction": {
+       "method": "pa_pit",
+       "tier": "observed",
+       "value": 0
+      }
+     }
+    },
+    "jurisdiction": "state:PA",
+    "kind": "income_tax",
+    "methods": {
+     "pa_pit": {
+      "as_of": "2026-11-20",
+      "description": "Flat 3.07% on taxable compensation, with no standard deduction or personal exemption. Current-law rate from the DOR page, checked 2026-11-20.",
+      "inputs": [
+       {
+        "license": "State publication (site footer copyright 2026); reuse terms UNVERIFIED",
+        "source": "Pennsylvania Department of Revenue",
+        "title": "Personal income tax",
+        "url": "https://www.pa.gov/en/agencies/revenue/resources/tax-types-and-information/personal-income-tax.html"
+       }
+      ]
+     }
+    },
+    "tax_year": 2026
+   }
+  },
+  "state:SD": {
+   "income_tax": {
+    "filing_status": {
+     "married_joint": {
+      "brackets": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": []
+      },
+      "personal_exemption": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": 0
+      },
+      "standard_deduction": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": 0
+      }
+     },
+     "single": {
+      "brackets": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": []
+      },
+      "personal_exemption": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": 0
+      },
+      "standard_deduction": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": 0
+      }
+     }
+    },
+    "jurisdiction": "state:SD",
+    "kind": "income_tax",
+    "methods": {
+     "no_income_tax": {
+      "as_of": "2026-11-20",
+      "description": "South Dakota has no individual income tax, so wages are not taxed by the state.",
+      "inputs": [
+       {
+        "license": "State publication (site footer, © Copyright 2026 - State of South Dakota); reuse terms UNVERIFIED",
+        "source": "South Dakota Department of Revenue",
+        "url": "https://dor.sd.gov/individuals/taxes/"
+       }
+      ]
+     }
+    },
+    "tax_year": 2026
+   }
+  },
+  "state:WA": {
+   "income_tax": {
+    "filing_status": {
+     "married_joint": {
+      "brackets": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": []
+      },
+      "personal_exemption": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": 0
+      },
+      "standard_deduction": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": 0
+      }
+     },
+     "single": {
+      "brackets": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": []
+      },
+      "personal_exemption": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": 0
+      },
+      "standard_deduction": {
+       "method": "no_income_tax",
+       "tier": "observed",
+       "value": 0
+      }
+     }
+    },
+    "jurisdiction": "state:WA",
+    "kind": "income_tax",
+    "methods": {
+     "no_income_tax": {
+      "as_of": "2026-11-20",
+      "description": "Washington has no individual income tax, so wages are not taxed by the state.",
+      "inputs": [
+       {
+        "license": "State publication (site footer, Washington State Department of Revenue and its licensors. All rights reserved.); reuse terms UNVERIFIED",
+        "source": "Washington State Department of Revenue",
+        "url": "https://dor.wa.gov/taxes-rates/income-tax"
+       }
+      ]
+     }
+    },
+    "tax_year": 2026
+   }
   }
  },
  "tax_year": 2026
