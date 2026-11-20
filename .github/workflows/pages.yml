@@ -26,10 +26,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Python tests
-        # Exit code 5 means no tests were collected; allowed until M1 adds pipeline tests.
         run: |
           pip install -r pipeline/requirements.txt
-          pytest -q pipeline || [ $? -eq 5 ]
+          pytest -q pipeline
       - uses: actions/setup-node@v4
         with:
           node-version: "20"

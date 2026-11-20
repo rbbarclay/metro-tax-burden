@@ -7,7 +7,15 @@ Estimate the total state and local tax burden a household would pay in each U.S.
 ## Current state
 
 - **M0 scaffolding done (2026-11-20).** Folder structure, CLAUDE.md, PROJECT.md, DATA.md, `.gitignore`, `pipeline/` (requirements, empty `tests/`), `web/` (placeholder `index.html`, `package.json`, `tests/`), and the GitHub Pages workflow. No data or calculations yet.
-- The one test so far (`web/tests/site.test.mjs`) checks that the page carries the "Estimate for planning. Not tax advice." note (plan section 8). The workflow's pytest step accepts "no tests collected" until M1 adds pipeline tests.
+- `web/tests/site.test.mjs` checks that the page carries the "Estimate for planning. Not tax advice." note (plan section 8).
+- **M1 data schema done (2026-11-20).** `pipeline/tiers.py` is copied from time-to-afford, with one addition: every method input must name its `source`, `url` and `license`. `pipeline/taxtables.py` validates the hand-entered tax tables in `data/tax/<year>/*.yml`:
+  - Each table needs `kind`, `jurisdiction`, `tax_year` (must be 2026) and a `methods` table.
+  - `income_tax` tables have exactly `single` and `married_joint`. Each has a `standard_deduction`, a `personal_exemption` and `brackets`, and every value carries a tier and a method.
+  - Bracket rows are `{over, rate}`. The first row starts at 0, thresholds increase, and rates run from 0 to under 1. An empty list means no tax on wages.
+  - Other kinds (FICA, sales, local, property) get their checks in the milestones that need them.
+  - **Snapshot:** the canonical JSON of each table is hashed into `pipeline/tests/snapshots/tax_tables.json`. Tests fail if any table changes, appears or disappears until `.venv/bin/python pipeline/taxtables.py --update-snapshot` is run and committed (plan section 7). Comments and formatting don't change the hash.
+  - No real tables yet; they come in M2. The CI pytest step no longer tolerates "no tests collected."
+- Check tables: `.venv/bin/python pipeline/taxtables.py`
 - Setup: `uv venv .venv && uv pip install -p .venv -r pipeline/requirements.txt`
 - Tests: `.venv/bin/pytest pipeline` and `cd web && node --test tests/`
 - Local preview: `python3 -m http.server -d web` and open http://localhost:8000
@@ -27,6 +35,7 @@ Full list in plan section 13. In short:
 - **Metros spanning states:** state picker within the metro, defaulting to the principal city's state.
 - **Local income tax:** county-level taxes population-weighted; city-level taxes at the principal city's rate, labeled.
 - **Coverage:** 10-metro pilot, then all 393 ACS 1-year metros for the base components, then sales and local income tax state by state ("not yet covered" until done).
+- **Tax tables are hand-entered YAML (decided 2026-11-20),** not downloaded, because tax law comes as PDFs, worksheets and statutes. YAML lets each figure carry a comment citing its page or line. The pipeline validates them and hashes their parsed content for the snapshot test.
 - **Privacy:** user inputs never leave the browser or go into URLs.
 - **License:** MIT for code; data under each source's terms (DATA.md).
 - **Hosting:** GitHub Pages via `.github/workflows/pages.yml`, tests first, publishing `web/` without tests and `package.json`.
@@ -34,7 +43,7 @@ Full list in plan section 13. In short:
 ## To-do
 
 - [x] M0: Scaffolding
-- [ ] M1: Data schema (tiers, tax year, filing status, snapshot-hash test)
+- [x] M1: Data schema (tiers, tax year, filing status, snapshot-hash test)
 - [ ] M2: Federal, FICA and state income tax, with worksheet tests; metro-to-state mapping; wage fallback
 - [ ] M3: Property tax (ACS B25103 ÷ B25077), pilot metros
 - [ ] M4: Sales tax, pilot metros
@@ -43,7 +52,7 @@ Full list in plan section 13. In short:
 - [ ] M7: Front end and methodology page
 - [ ] M8: National base, all 393 metros
 - [ ] M9: State-by-state rollout of sales and local income tax
-- [ ] Enable GitHub Pages for the repo (Settings → Pages → Source: GitHub Actions)
+- [x] Enable GitHub Pages for the repo (first deploy succeeded 2026-11-20)
 
 ## Open questions
 
